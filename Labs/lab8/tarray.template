@@ -1,0 +1,95 @@
+// Wesley Ryder
+// LAB 8
+// 10-17-17
+// description: to learn more about template classes.
+
+#include<algorithm>
+// all you have to do is add template<class T> and Tarray<T>:: before the fuction deffintion.
+// for each function which we have made in preivous home work assignemnts. So basically this lab
+// just adding the template part.
+
+
+// Constructor makes an object with a dynamic array of size 5
+template<class T>
+Tarray<T>::Tarray(){ 
+	capacity = 5;
+	used = 0;
+	data = new T[capacity];
+}
+// This function puts the item into the next available spot in the 
+//array.
+// If the array is full, resize is called.
+template<class T>
+void Tarray<T>::add(T item){
+	if(used < capacity){
+		data[used] = item;
+		used++;
+	}	
+	else{
+		resize();
+		data[used] = item;
+		used++;
+	}
+}
+// iterator functions
+
+// places the current_index at the beginning of the array
+template<class T>
+void Tarray<T>::start(){
+	if(used != 0){
+		current_index = 0;
+	}
+}
+
+// returns true if the current index is less than used
+template<class T>
+bool Tarray<T>::is_item()const{
+	if(current_index < used){
+		return true;
+	}
+	else{return false;}
+}
+
+// moves current index to the next array location
+template<class T>
+void Tarray<T>::advance(){
+	if(is_item() == true){
+		current_index++;
+	}
+}
+
+// returns the array item being referenced by cuurent index
+template<class T>
+T Tarray<T>::current()const{
+	if(is_item() == true){
+		return data[current_index];
+	}
+}
+
+// removes the item at the current index spot
+template<class T>
+void Tarray<T>::remove_current(){
+	T tmp;
+	size_t i = current_index;
+	
+	if(is_item() == true){
+		current();
+		for (i; i < used; i++){
+			tmp = data[i];
+			data[i] = data[i + 1];
+			data[i + 1] = tmp;
+		}
+		used--;
+	}
+}
+// the resize function.
+template<class T>
+void Tarray<T>::resize(){
+	T *tmp;
+	tmp = new T[capacity + 5];
+	std::copy(data, data + used, tmp);
+	delete[]data;
+	data = tmp;
+	capacity += 5;	
+}
+

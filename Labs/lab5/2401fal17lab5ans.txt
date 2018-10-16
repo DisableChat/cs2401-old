@@ -1,0 +1,45 @@
+CS2401	Fall 2014	LAB Five Answer Sheet	Name: Wesley Ryder
+
+1) The class simple stores and unsigned long variable called num, and it stores an unsigned long pointer named sq. which will be part of the array of data. 
+
+2) It stores  a simple data type pointer that points to an array that holds  
+in the public of the class there defualt constructor called Numbers2(), a destructor called ~Numbers2(), a void insert that passes an unsigned long called item through the parameters, a void display(), an assignment opperator function called void opperator = that passes a const Numbers& other through the parameters. I also made a copy constructor in Numbers2. In the private section it has a void resize() function, a pointer called data of the type simple (a class) and size_t variables called used and capacity.
+
+however in the actuall array simply put, in each index of the array it stores the unsgined long number and the pointer that points to the square of that number.
+
+
+3) Numbers2 Class (like diagram saw in lab by TA).
+ ___________
+|		 	|
+|		 	|	      (dynamic array)   
+|	data  	| -----> [num|num|num|num]
+|		 	|			|   |   |
+|___________|			|   |   V
+						|   |	num*num
+						|   V			
+						| num*num
+						V
+			  		num*num
+
+The numbers2 has an array that is dynamic and the array holds an unsigned long and a pointer sq. also before the resize function is called its capactiy = 10.
+
+
+4) The destructor for this class will not be as simple because this time because the pointer in private of Numbers2 is simple *data, meaning that the array of data will have an unsinged long number as well as a pointer. So this time the desctructor will have to delete the pointer pointing to the square first then we can delete[]data after. otherwise it will not work. 
+
+
+5)The copy contructor will also be different because we must copy the number in the arrary as well as the pointer pointing to the square. the data[i].num and the data[i].sq rather than just one piece of data from the array like previous problems. Using a for loop we can do this by copying the passed parameter of the copy constructor and then in the for loop setting the  data[i].num and data[i].sq to the passed parameter. And we do the .sq part by saying it  equals a new unsigned long and then saying the actual value of data[i].sq = actual value of other.data[i].sq. note since we are coppying a pointer we must allocate new memory again for the .sq pointer. This way we copy all of the things inside the data array correctly.
+
+
+
+6) Shortlife is used to store and then long life is used to display. because he inserts the numbers into shortlife and then closes the file and then sets longlife to shortlife. and then displays longlife. The reason I think he did this was to show us the big 3  which are desctructor, copy constructor and assignemnt operator and make sure they work properly.
+
+
+
+7) Yes it it worked. I ran the program this is what I got using smaller.dat.
+( 14140,199939600 ) ( 22089,487923921 ) ( 26522,703416484 ) ( 5203,27071209 ) ( 9172,84125584 ) ( 4435,19669225 ) ( 28318,801909124 ) ( 24583,604323889 ) ( 6816,46457856 ) ( 4587,21040569 ) 
+
+
+8) I ran main.cc and used larger.dat, this time the program crashed. The command line then said Segmentation fault (core dumped).
+
+
+9) I ran the program again and this time it worked. It was a long list of larger.dat and the square of each number. meaning the dynamic memory part of the program works. The script file has the output.

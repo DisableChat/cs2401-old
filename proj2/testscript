@@ -1,0 +1,34 @@
+Script started on Mon 25 Sep 2017 08:22:08 PM EDT
+wryder@pu1:~/cs2401/hw/hw2$ g++ main.cc date.cc fbfriends.cc friend.cc
+wryder@pu1:~/cs2401/hw/hw2$ a[K./a.out
+Welcome to Friends Management.
+
+Begin by entering your username: rp  p rplant
+Choose from the options below:
+1 - Add a friend to the beginning of the list.
+2 - See all your friends.
+3 - Walk through the list, one friend at a time.
+4 - Sort your friends by birthday.
+5 - Find a friend so you can learn when they were born.
+6 - See the list you started with in today's session. 
+9 - Leave the program.
+5
+Enter the name of your friend:
+fake nae me
+Friend doesn't exist
+NO_USER
+1/1/1000
+
+Choose from the options below:
+1 - Add a friend to the beginning of the list.
+2 - See all your friends.
+3 - Walk through the list, one friend at a time.
+4 - Sort your friends by birthday.
+5 - Find a friend so you can learn when they were born.
+6 - See the list you started with in today's session. 
+9 - Leave the program.
+e ^C
+wryder@pu1:~/cs2401/hw/hw2$ exit
+exit
+
+Script done on Mon 25 Sep 2017 08:22:30 PM EDT

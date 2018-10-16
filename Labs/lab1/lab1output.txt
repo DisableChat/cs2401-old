@@ -1,0 +1,24 @@
+Script started on Wed 30 Aug 2017 12:16:42 AM EDT
+wryder@pu1:~/cs2401/lab1$ g++ main.cc MyTime.cc
+wryder@pu1:~/cs2401/lab1$ ./a.out
+Enter time one: 5 20
+Enter time two: 2 10
+Enter Scalar: 2
+Time One: 5:20 Time Two: 2:10
+Scalar given: 2
+Times added: 7:30
+Times substracted: 3:10
+Time One multiplied by scalar: 10:40
+Time Two multiplied by scalar: 4:20
+Time One divided by scalar: 2:40
+Time Two divided by scalar: 1:05
+**EQUAL TO TEST**
+Time One is not equal to time Two!
+**LESS THAN OR EQUAL TO TEST**
+Time one is greater than time two. 
+**LESS THAN TEST**
+Time one is not less than time two. 
+wryder@pu1:~/cs2401/lab1$ exit
+exit
+
+Script done on Wed 30 Aug 2017 12:17:18 AM EDT

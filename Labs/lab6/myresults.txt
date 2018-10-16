@@ -1,0 +1,10 @@
+Script started on Tue 03 Oct 2017 08:57:38 PM EDT
+wryder@pu1:~/cs2401/labs/lab6$ ./a.outg++ main.cc
+wryder@pu1:~/cs2401/labs/lab6$ g++ main.cc[4P./a.out
+Now showing list One: 
+Charlie  Lisa  Drew  Derrick  AJ  Bojian  Enter a name to search: AJ
+That name is stored at address: 0x1812ce0
+Drew  Derrick  AJ  Bojian  Charlie  Lisa  wryder@pu1:~/cs2401/labs/lab6$ exit
+exit
+
+Script done on Tue 03 Oct 2017 08:58:00 PM EDT

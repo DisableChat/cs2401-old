@@ -1,0 +1,275 @@
+/***************************************************************************
+
+	Wesley Ryder
+	CS2401 Proj 4
+	10-22-17
+	Description: This is implementation for dlist and the itterator class
+		which the dlist is just a list of all the nodes where the itterator
+		is used to transverse this list in the program. This program also uses 
+		templates
+
+****************************************************************************/
+
+
+#include <iostream>
+using namespace std;
+
+// defualt contructor
+template<class T>
+dlist<T>::dlist(){
+	head = NULL;
+	tail = NULL;
+	count = 0;
+}
+
+// copy contrcutor
+template<class T>
+dlist<T>::dlist(const dlist& other){
+	if(other.head == NULL){head = NULL; tail = NULL;}
+	else{
+		Dnode<T>* sptr;
+		Dnode<T>* dptr;
+		Dnode<T>* tmp;
+		// creating new head so we can start copying from other
+		head = new Dnode<T>(other.head -> data());
+		dptr = head;
+		sptr = other.head -> next();
+		head -> set_previous(NULL);
+		// while source pointer is not null keep adding more nodes so we can keep copying the other
+		// to the copy we want to make. while also connecting all the nodes to the net and previous correctly.
+		while(sptr != NULL){
+			tmp = dptr;
+			dptr -> set_next(new Dnode<T>);
+			dptr = dptr -> next();
+			dptr -> set_data(sptr -> data());
+			sptr = sptr -> next();
+			dptr -> set_previous(tmp);
+		}
+		//tail points at  destionation pointer
+		tail = dptr;
+		dptr -> set_next(NULL);
+	}
+}
+
+// destructor
+template<class T>
+dlist<T>::~dlist(){
+	Dnode<T>* rmptr;
+	while(head != NULL){
+		rmptr = head;
+		head = head -> next();
+		delete rmptr;
+	}
+}
+
+// Copy Assignemnt opperator
+template<class T>
+dlist<T>& dlist<T>::operator = (const dlist& other){
+	// if this equals other just return this.
+	if(this == &other){
+		return *this;
+	}
+	// if it doesnt, then delete all the nodes in that list.
+	Dnode<T>* rmptr;
+	while(head != NULL){
+		rmptr = head;
+		head = head -> next();
+		delete rmptr;
+	}
+	// then copy all the nodes from other so we then have a copy of the whole list.
+	if(other.head == NULL){head = NULL; tail = NULL;}
+		else{
+			Dnode<T>* sptr;
+			Dnode<T>* dptr;
+			Dnode<T>* tmp;
+			// creating new head so we can start copying from other
+			head = new Dnode<T>(other.head -> data());
+			dptr = head;
+			sptr = other.head -> next();
+			head -> set_previous(NULL);
+			// while source pointer is not null keep adding more nodes so we can keep copying the other
+			// to the copy we want to make. while also connecting all the nodes to the net and previous correctly.
+			while(sptr != NULL){
+				tmp = dptr;
+				dptr -> set_next(new Dnode<T>);
+				dptr = dptr -> next();
+				dptr -> set_data(sptr -> data());
+				sptr = sptr -> next();
+				dptr -> set_previous(tmp);
+			}
+			//tail points at  destionation pointer
+			tail = dptr;
+			dptr -> set_next(NULL);
+		} 
+	return *this;
+}
+
+// rear_insert function  which only had two cases and empty list and a non-empty list.
+template<class T>
+void dlist<T>::rear_insert(T item){
+	if(head == NULL && tail == NULL){
+		head = tail = new Dnode<T>(item, NULL, NULL);
+	}
+	else{
+		tail-> set_next(new Dnode<T>(item,tail, NULL));
+		tail = tail -> next();
+	}
+}
+
+// front_insert function which only had two cases an empty list and a non-empty list.
+template<class T>
+void dlist<T>::front_insert(T item){
+	if(head == NULL && tail == NULL){
+		head = tail = new Dnode<T>(item, NULL, NULL);
+	}
+	else{
+		head -> set_previous(new Dnode<T>(item, NULL, head));
+		head = head -> previous();
+	}
+}
+
+// front_remove function which removes at the head this function has 3 cases. 
+template<class T>
+void dlist<T>::front_remove(){
+	// empty list case.
+	if(head == NULL){
+		cout << "Can't remove from an empty list" << endl;
+	}
+	// one node case
+	else if(head == tail){
+		Dnode<T>* tmp = head;
+		head = tail = NULL;
+		delete tmp;
+	}
+	// list with more than one node case
+	else{
+		head = head -> next();
+		delete head -> previous();
+		head -> set_previous(NULL);
+	}
+}
+
+// rear_remove function, which removes at the tail, this function has 3 cases.
+template<class T>
+void dlist<T>::rear_remove(){
+	// emppty list case.
+	if(tail == NULL){
+		cout << "Can't remove from an empty list" << endl;
+	}
+	// one node in list case
+	else if(tail == head){
+		Dnode<T>* tmp = tail;
+		head = tail = NULL;
+		delete tmp;
+	}
+	// list with more than one node case
+	else{
+		tail = tail -> previous();
+		delete tail -> next();
+		tail -> set_next(NULL);
+	}
+}
+
+// the remove function. this function has 5 cases.
+template<class T>
+void dlist<T>::remove(iterator it){
+	// 1st case: empty list
+	if(head == NULL && tail == NULL){
+		cout << "Can't remove from an empty list" << endl;
+		return;
+	}
+	// 2nd case: one node in list case
+	else if(it.current == head && it.current == tail){
+		front_remove();
+	}
+	// 3rd case: removing from front of list
+	else if(it.current == head){
+		front_remove();
+	}
+	// 4th case: removing from end of list
+	else if(it.current == tail){
+		rear_remove();
+	}
+	// 5th case: removing from middle case
+	else{
+		Dnode<T>* tmp = it.current;
+		it.current -> previous() -> set_next(it.current -> next());
+		it.current -> next() -> set_previous(it.current -> previous());
+		tmp -> set_next(NULL);
+		tmp -> set_previous(NULL);
+		delete tmp;
+	}
+}
+
+// insert before function for inserting before a node, it has 3 cases.
+template<class T>
+void dlist<T>::insert_before(iterator it, T item){
+	//1st case: empty list
+	if(it.current == NULL){
+		front_insert(item);
+	}
+	// 2nd case: inserting before head
+	else if(it.current == head){
+		front_insert(item);
+	}
+	// 3rd case: inserting before a random node.
+	else{
+		Dnode<T>* tmp = new Dnode<T>(item, it.current -> previous(), it.current);
+		it.current -> previous() -> set_next(tmp);
+		it.current -> set_previous(tmp);
+	}
+}
+
+// insert after function for inserting after a node, it has 3 cases.
+template<class T>
+void dlist<T>::insert_after(iterator it, T item){
+	// 1st case: empty list
+	if(it.current == NULL){
+		rear_insert(item);
+	}
+	// 2nd case: inserting at end of list.
+	else if(it.current == tail){
+		rear_insert(item);
+	}
+	// 3rd case: inserting after a random node
+	else{
+		Dnode<T>* tmp = new Dnode<T>(item, it.current, it.current -> next());
+		it.current -> next() -> set_previous(tmp);
+		it.current -> set_next(tmp);
+	}
+}
+
+// show function just shows all nodes data_fields.
+template<class T>
+void dlist<T>::show(){
+	Dnode<T>* cursor = head;
+
+	while(cursor != NULL){
+		cout << cursor -> data() << endl;
+		cursor = cursor -> next();
+	}
+}
+
+// reverse show function just shows list in reverse order.
+template<class T>
+void dlist<T>::reverse_show(){
+	Dnode<T>* cursor;
+	cursor = tail;
+
+	while(cursor != NULL){
+		cout << cursor -> data() << endl;
+		cursor = cursor -> previous();
+	}
+}
+
+// size function which just returns the total count of nodes.
+template<class T>
+int dlist<T>::size(){
+	Dnode<T>* cursor = head;
+	count = 0;
+	while(cursor != NULL){
+		cursor = cursor -> next();
+		count++;
+	}	
+	return count;
+}

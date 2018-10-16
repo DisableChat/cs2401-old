@@ -1,0 +1,11 @@
+Script started on Tue 17 Oct 2017 05:59:07 PM EDT
+wryder@odd19:~/cs2401/labs/lab8$ l[Kg++ main.cc
+wryder@odd19:~/cs2401/labs/lab8$ ./a.out
+1804289383
+846930886
+1681692777
+1714636915
+CS is the bestest at Ohio University wryder@odd19:~/cs2401/labs/lab8$ exit
+exit
+
+Script done on Tue 17 Oct 2017 05:59:26 PM EDT
